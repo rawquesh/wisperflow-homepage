@@ -1,173 +1,164 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { WindowsIcon, WaveText } from "./Navbar";
 
-const BADGE_STATES = [
-  { label: "Removed", highlight: "Umm", strike: true },
-  { label: "Fixed", highlight: "their → they're", strike: false },
-  { label: "Cleaned", highlight: "the the", strike: true },
-  { label: "Formatted", highlight: "Paragraphs", strike: false },
-];
+const RAW_SPEECH_STREAM =
+  "kind of chaotic, like nobody really knows what's going on so can you check in with them and see if the notes from yesterday's meeting were sent out, or if they're still waiting...   ";
 
-const RAW_SPOKEN_STREAM =
-  "Umm, hope your week has started well…I was talking to Cheyene earlier but reception was really bad and I think their going to handle the first part of the project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth and honestly the the whole thing’s been kind of chaotic, like nobody really knows what’s going on so can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting. I think Cheyene mentioned it but didn’t confirm, and now I’m a little lost.   •   " +
-  "Umm, hope your week has started well…I was talking to Cheyene earlier but reception was really bad and I think their going to handle the first part of the project, but I’m not totally sure. Also, I told the team the the new timeline should be ready by Friday, although it’s probably going to slip. There’s been a lot of back and forth and honestly the the whole thing’s been kind of chaotic, like nobody really knows what’s going on so can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting.";
+const POLISHED_TEXT_STREAM =
+  "Can you check in with the team to see if yesterday's meeting notes were sent out, or if they're still waiting?   ";
 
-const POLISHED_OUTPUT_STREAM =
-  "Hope your week is off to a good start. I was talking to Cheyene earlier, but the reception was really bad. I think they’re going to handle the first part of the project, but I’m not totally sure. I also told the team the new timeline should be ready by Friday — although it might slip. There’s been a lot of back and forth, and honestly, the whole thing has been a bit chaotic. It feels like nobody really knows what’s going on. Can you check in with them and see if the notes from yesterday’s meeting were sent out, or if they’re still waiting? I think Cheyene mentioned it, but didn’t confirm — and now I’m a little lost!   •   " +
-  "Hope your week is off to a good start. I was talking to Cheyene earlier, but the reception was really bad. I think they’re going to handle the first part of the project, but I’m not totally sure. I also told the team the new timeline should be ready by Friday — although it might slip.";
-
-interface HeroSectionProps {
-  activeProduct: "dictation" | "notetaker";
-}
-
-export function HeroSection({ activeProduct }: HeroSectionProps) {
-  const [badgeIdx, setBadgeIdx] = useState(0);
+export function HeroSection() {
+  const rawTextPathRef = useRef<SVGTextPathElement | null>(null);
+  const polishedTextPathRef = useRef<SVGTextPathElement | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setBadgeIdx((prev) => (prev + 1) % BADGE_STATES.length);
-    }, 2800);
-    return () => clearInterval(timer);
+    let rafId: number;
+    let offset = 0;
+
+    const animateTextPaths = () => {
+      offset = (offset + 0.06) % 50;
+      if (rawTextPathRef.current) {
+        rawTextPathRef.current.setAttribute("startOffset", `${-offset}%`);
+      }
+      if (polishedTextPathRef.current) {
+        polishedTextPathRef.current.setAttribute("startOffset", `${-offset}%`);
+      }
+      rafId = requestAnimationFrame(animateTextPaths);
+    };
+
+    rafId = requestAnimationFrame(animateTextPaths);
+    return () => cancelAnimationFrame(rafId);
   }, []);
 
-  const currentBadge = BADGE_STATES[badgeIdx];
-
   return (
-    <section className="relative pt-16 pb-6 md:pt-20 md:pb-12 overflow-hidden select-none">
-      {/* Center Hero Copy */}
-      <div className="relative z-20 max-w-[780px] mx-auto px-4 text-center flex flex-col items-center">
-        <div className="text-[12px] tracking-[0.14em] uppercase text-[#1A1A1A]/75 font-medium mb-4">
-          {activeProduct === "dictation"
-            ? "WISPR FLOW DICTATION"
-            : "WISPR FLOW NOTETAKER"}
-        </div>
-
-        <h1 className="font-garamond text-[64px] sm:text-[84px] md:text-[96px] leading-[0.95] tracking-[-0.03em] font-normal text-[#1A1A1A] mb-6">
-          {activeProduct === "dictation" ? (
-            <>
-              Don’t type,
-              <br />
-              <em className="italic font-normal">just speak.</em>
-            </>
-          ) : (
-            <>
-              No bots,
-              <br />
-              <em className="italic font-normal">just great notes.</em>
-            </>
-          )}
-        </h1>
-
-        <p className="text-[17px] md:text-[18.5px] leading-[1.45] text-[#1A1A1A]/85 max-w-[440px] mb-8 font-normal">
-          {activeProduct === "dictation"
-            ? "The voice-to-text AI that turns speech into clear, polished writing in every app."
-            : "AI meeting notes accurate enough to act on. Works seamlessly across Zoom, Meet, Teams, and Slack."}
-        </p>
-
-        <a
-          href="#download"
-          className="bg-[#EBDCFF] hover:bg-[#E2CEFF] active:scale-[0.99] text-[#1A1A1A] border-[1.5px] border-[#1A1A1A] rounded-[10px] px-6 py-3.5 text-[15px] font-medium inline-flex items-center gap-2.5 transition-all duration-150 shadow-[0_2px_0_rgba(26,26,26,0.12)] mb-4"
+    <section className="relative pt-10 pb-10 md:pt-14 md:pb-14 overflow-hidden bg-[#FFFFEB]">
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 text-center relative z-20">
+        {/* Eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-[12px] md:text-[13px] uppercase tracking-[0.16em] text-[#1A1A1A]/75 font-semibold mb-3"
         >
-          <img
-            src="/assets/windows.svg"
-            alt="Windows"
-            className="w-4 h-4"
-          />
-          <span>Get started on Windows</span>
-        </a>
+          WISPR FLOW DICTATION
+        </motion.p>
 
-        <p className="text-[12.5px] text-[#1A1A1A]/60 font-normal">
-          Available on Mac, Windows, iPhone, and Android
-        </p>
+        {/* Main Editorial Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="font-garamond text-[58px] sm:text-[80px] md:text-[96px] leading-[0.94] tracking-[-0.025em] text-[#1A1A1A] font-normal"
+        >
+          Don&apos;t type,
+          <br />
+          <span className="italic font-normal">just speak.</span>
+        </motion.h1>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-5 max-w-[460px] mx-auto text-[17px] md:text-[18.5px] leading-[1.48] text-[#1A1A1A]/85 font-normal"
+        >
+          The voice-to-text AI that turns speech into clear, polished writing in every app.
+        </motion.p>
+
+        {/* Primary CTA + Platform Availability */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-7 flex flex-col items-center gap-3.5"
+        >
+          <a
+            href="#download"
+            className="group inline-flex items-center gap-2.5 bg-[#F0D7FF] hover:bg-[#E5C2FA] text-[#1A1A1A] font-semibold text-[15px] px-6 py-3.5 rounded-xl border border-[#1A1A1A] transition-all"
+          >
+            <WindowsIcon className="w-4 h-4" />
+            <WaveText text="Get started on Windows" />
+          </a>
+
+          <p className="text-[13px] text-[#1A1A1A]/55 font-medium">
+            Available on Mac, Windows, iPhone, and Android
+          </p>
+        </motion.div>
       </div>
 
-      {/* Animated SVG Loop Stream + Transformation Pill + Polished Output Ribbon */}
-      <div className="relative w-full max-w-[1440px] mx-auto -mt-36 md:-mt-56 h-[320px] md:h-[420px] pointer-events-none">
+      {/* Curved SVG Text Stream with Loop-de-Loop on Left + Ribbon on Right */}
+      <div className="relative -mt-20 md:-mt-28 w-full max-w-[1440px] mx-auto h-[270px] md:h-[300px] flex items-end justify-center select-none pointer-events-none">
         <svg
-          viewBox="0 0 1440 460"
+          viewBox="0 0 1440 360"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-full overflow-visible"
-          preserveAspectRatio="xMidYMid slice"
         >
-          {/* Left Raw Speech Loop Path */}
-          <path
-            id="hero-raw-curve"
-            d="M -120 340 C 60 365, 345 310, 355 190 C 365 75, 165 65, 155 200 C 145 335, 390 450, 720 435"
-            stroke="none"
-            fill="none"
-          />
+          <defs>
+            {/* Left Loop-de-Loop Curve matching shot-00-0.png */}
+            <path
+              id="hero-raw-curve"
+              d="M -60,210 C 160,240 360,190 350,90 C 340,-10 150,0 160,120 C 170,240 450,330 720,315"
+            />
+            {/* Right Polished Ribbon Curve */}
+            <path
+              id="hero-polished-curve"
+              d="M 720,315 C 980,315 1220,255 1520,185"
+            />
+          </defs>
 
+          {/* Flowing raw speech on left */}
           <text
-            fill="#8D8D7B"
-            fontSize="16.5"
-            fontFamily="var(--font-figtree), sans-serif"
+            fill="#1A1A1A"
+            fillOpacity="0.38"
+            fontSize="16"
+            fontWeight="500"
             letterSpacing="-0.01em"
           >
-            <textPath href="#hero-raw-curve" startOffset="0%">
-              {RAW_SPOKEN_STREAM}
-              <animate
-                attributeName="startOffset"
-                from="-120%"
-                to="0%"
-                dur="32s"
-                repeatCount="indefinite"
-              />
+            <textPath ref={rawTextPathRef} href="#hero-raw-curve" startOffset="0%">
+              {RAW_SPEECH_STREAM.repeat(4)}
             </textPath>
           </text>
 
-          {/* Right Polished Writing Ribbon Path */}
-          <path
-            id="hero-polished-curve"
-            d="M 720 435 C 940 435, 1180 410, 1540 315"
+          {/* Thick dark ribbon backing on right */}
+          <use
+            href="#hero-polished-curve"
             stroke="#1A1A1A"
             strokeWidth="34"
             strokeLinecap="round"
-            fill="none"
           />
 
+          {/* Flowing polished white writing inside dark ribbon on right */}
           <text
             fill="#FFFFEB"
-            fontSize="16.5"
-            fontWeight="500"
-            fontFamily="var(--font-figtree), sans-serif"
+            fontSize="17"
+            fontWeight="600"
             letterSpacing="-0.01em"
-            dy="5.5"
+            dy="6"
           >
-            <textPath href="#hero-polished-curve" startOffset="0%">
-              {POLISHED_OUTPUT_STREAM}
-              <animate
-                attributeName="startOffset"
-                from="-100%"
-                to="0%"
-                dur="28s"
-                repeatCount="indefinite"
-              />
+            <textPath ref={polishedTextPathRef} href="#hero-polished-curve" startOffset="0%">
+              {POLISHED_TEXT_STREAM.repeat(4)}
             </textPath>
           </text>
         </svg>
 
-        {/* Center Transformation Pill Badge */}
-        <div className="absolute bottom-4 md:bottom-7 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
-          <div className="bg-[#034F46] text-[#FFFFEB] border-2 border-[#76A89E]/40 rounded-full px-5 py-2.5 shadow-[0_8px_30px_rgba(3,79,70,0.28)] flex items-center gap-2.5 min-w-[186px] justify-center transition-all duration-300">
-            <span className="w-2 h-2 rounded-full bg-[#7FFFD4] animate-pulse" />
-            <span className="text-[14.5px] font-medium tracking-[-0.01em]">
-              {currentBadge.label}{" "}
-              <span
-                className={
-                  currentBadge.strike
-                    ? "line-through decoration-[#FFFFEB]/70 opacity-85"
-                    : "underline decoration-[#7FFFD4] underline-offset-2"
-                }
-              >
-                {currentBadge.highlight}
-              </span>
-            </span>
+        {/* Center Grammar Corrected Pill + Flowbar Pill */}
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3">
+          <div className="bg-[#034F46] text-[#FFFFEB] text-[14px] font-semibold px-5 py-2 rounded-full shadow-md flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#FFFFEB]" />
+            <span>Grammar corrected</span>
           </div>
+
+          <img
+            src="/assets/flowbar.svg"
+            alt="Wispr Flowbar"
+            className="h-9 w-auto drop-shadow-md"
+          />
         </div>
       </div>
     </section>
   );
 }
-

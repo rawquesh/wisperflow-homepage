@@ -1,296 +1,196 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { ChevronRight } from "lucide-react";
+import { useDynamicCorners } from "@/hooks/useDynamicCorners";
+import { WindowsIcon, WaveText } from "./Navbar";
 
-const FOOTER_COLUMNS = [
-  {
-    title: "GET STARTED",
-    links: [
-      { label: "Pricing", href: "https://wisprflow.ai/pricing" },
-      { label: "Privacy & Security", href: "https://wisprflow.ai/privacy" },
-      { label: "Web demo", href: "https://wisprflow.ai/try-flow" },
-      {
-        label: "Why Flow vs. Built-in Dictation",
-        href: "https://wisprflow.ai/why-flow",
-      },
-      { label: "Microphone guide", href: "https://wisprflow.ai/microphones" },
-      { label: "Merch store", href: "https://shop.wisprflow.ai/" },
-    ],
-  },
-  {
-    title: "PROFESSIONALS",
-    links: [
-      { label: "Leaders", href: "https://wisprflow.ai/leaders" },
-      { label: "Developers", href: "https://wisprflow.ai/vibe-coding" },
-      { label: "Marketers", href: "https://wisprflow.ai/marketers" },
-      { label: "Creators", href: "https://wisprflow.ai/creators" },
-      {
-        label: "Customer Support",
-        href: "https://wisprflow.ai/customer-support",
-      },
-      { label: "Students", href: "https://wisprflow.ai/students" },
-      { label: "Lawyers", href: "https://wisprflow.ai/lawyers" },
-      { label: "Accessibility", href: "https://wisprflow.ai/accessibility" },
-      { label: "Sales", href: "https://wisprflow.ai/sales" },
-    ],
-  },
-  {
-    title: "RESOURCES",
-    links: [
-      { label: "Case studies", href: "https://wisprflow.ai/case-studies" },
-      { label: "Blog", href: "https://wisprflow.ai/post" },
-      {
-        label: "Notetaker resources",
-        href: "https://wisprflow.ai/notetaker-resources",
-      },
-      {
-        label: "AI prompting guide",
-        href: "https://wisprflow.ai/ai-prompting-guide",
-      },
-      { label: "Workflows", href: "https://wisprflow.ai/workflows" },
-      {
-        label: "Flow vs Gboard voice typing",
-        href: "https://wisprflow.ai/flow-vs-gboard",
-      },
-      {
-        label: "Flow vs Apple Dictation",
-        href: "https://wisprflow.ai/flow-vs-apple-dictation",
-      },
-      { label: "What's new", href: "https://wisprflow.ai/whats-new" },
-      { label: "Vibe coding", href: "https://wisprflow.ai/vibe-coding" },
-      { label: "Bug bounty", href: "https://wisprflow.ai/bug-bounty" },
-      { label: "Talk to support", href: "https://docs.wisprflow.ai/" },
-      { label: "Talk to sales", href: "https://wisprflow.ai/contact-sales" },
-      { label: "Help center", href: "https://docs.wisprflow.ai/" },
-    ],
-  },
-  {
-    title: "COMPANY",
-    links: [
-      { label: "About", href: "https://wisprflow.ai/company" },
-      { label: "Careers", href: "https://wisprflow.ai/careers" },
-      { label: "Trust Center", href: "https://trust.wisprflow.ai/" },
-      { label: "Become an affiliate", href: "https://wisprflow.ai/affiliates" },
-      {
-        label: "Media Kit",
-        href: "https://wisprflow.notion.site/Wispr-Flow-Press-Kit-1ac40f78655e8065be14c7fd5bb33f28",
-      },
-    ],
-  },
-];
+export function CtaSection() {
+  const ctaRef = useRef<HTMLDivElement | null>(null);
+  useDynamicCorners(ctaRef, { maxDesktop: 80, maxMobile: 40 });
 
-export default function CtaAndFooter() {
   return (
-    <>
-      {/* Full-bleed Rounded Bottom CTA Section (section_startflowing) */}
-      <section className="section_startflowing bg-[#FFFFEB] px-0 pb-12">
-        <div className="relative w-full min-h-[680px] md:min-h-[840px] rounded-[40px] md:rounded-[64px] overflow-hidden flex flex-col items-center justify-center text-center px-6 py-24">
-          {/* Background Image */}
-          <img
-            src="/assets/cta-bg.jpg"
-            alt="You have a way with words. Now, two."
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/15" />
+    <section className="px-0 pt-6 pb-16 bg-[#FFFFEB]">
+      <div
+        ref={ctaRef}
+        className="relative min-h-[580px] md:min-h-[720px] w-full overflow-hidden flex items-center justify-center text-center px-4 sm:px-8 py-24"
+      >
+        {/* Background Atmospheric Image */}
+        <img
+          src="/assets/cta-bg.jpg"
+          alt="Start flowing"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/25" />
 
-          {/* Content */}
-          <div className="relative z-10 max-w-[980px] mx-auto text-[#FFFFEB]">
-            <h2 className="font-garamond text-[56px] sm:text-[84px] md:text-[120px] leading-[0.95] tracking-[-0.036em] mb-8">
-              You have a way with
-              <br />
-              words. Now, <em className="italic font-normal">two.</em>
-            </h2>
+        {/* Editorial Content matching shot-13-15150.png */}
+        <div className="relative z-10 max-w-[920px] mx-auto text-[#FFFFEB] flex flex-col items-center">
+          <h2 className="font-garamond text-[54px] sm:text-[80px] md:text-[104px] leading-[0.94] tracking-[-0.025em] text-[#FFFFEB]">
+            You have a way with
+            <br />
+            words. Now, <span className="italic font-normal">two.</span>
+          </h2>
 
-            <p className="text-[16px] md:text-[18px] text-[#FFFFEB]/90 max-w-[520px] mx-auto leading-[1.5] mb-9 font-normal">
-              Talk thoughts into writing with Flow and conversations into
-              meeting notes with Notetaker. Both are in one app, free.
-            </p>
+          <p className="mt-6 text-[16px] md:text-[18px] leading-[1.5] text-[#FFFFEB]/90 max-w-[520px]">
+            Talk thoughts into writing with Flow and conversations into meeting notes with Notetaker. Both are in one app, free.
+          </p>
 
+          <div className="mt-8 flex flex-col items-center">
             <a
-              href="https://wisprflow.ai/downloads"
-              className="inline-flex items-center gap-2.5 bg-[#EBDCFF] hover:bg-[#e1ccff] text-[#1A1A1A] font-medium text-[15px] px-7 py-4 rounded-[12px] border border-[#1A1A1A] transition-transform active:scale-[0.99] shadow-lg"
+              href="#download"
+              className="group inline-flex items-center gap-2.5 bg-[#F0D7FF] hover:bg-[#E5C2FA] text-[#1A1A1A] font-semibold text-[15px] px-6 py-3.5 rounded-xl border border-[#1A1A1A] transition-all"
             >
-              <img src="/assets/windows.svg" alt="" className="w-4 h-4" />
-              <span>Get started on Windows</span>
+              <WindowsIcon className="w-4 h-4" />
+              <WaveText text="Get started on Windows" />
             </a>
           </div>
         </div>
-      </section>
-
-      {/* Footer Section (section_footer) */}
-      <footer className="section_footer bg-[#FFFFEB] text-[#1A1A1A] pt-12 pb-8 px-4 md:px-12 overflow-hidden">
-        <div className="max-w-[1260px] mx-auto">
-          {/* PRODUCTS Label & Two Horizontal Product Cards */}
-          <div className="mb-16">
-            <div className="text-[12px] tracking-[0.16em] uppercase font-medium text-[#1A1A1A]/50 mb-4">
-              PRODUCTS
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              {/* Product Card 1: Wispr Flow Dictation */}
-              <a
-                href="https://wisprflow.ai/downloads"
-                className="group bg-[#E4E4D0] rounded-[20px] p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-5 md:gap-6 hover:bg-[#dcdcc4] transition-colors"
-              >
-                <div className="w-full sm:w-[160px] h-[140px] sm:h-[148px] rounded-[14px] bg-[#EBDCFF] shrink-0 flex items-center justify-center p-4">
-                  <img
-                    src="/assets/flowbar.svg"
-                    alt="Wispr Flow Dictation"
-                    className="w-[110px] h-auto object-contain"
-                  />
-                </div>
-                <div className="flex-1 py-1">
-                  <h3 className="text-[19px] md:text-[20px] font-semibold text-[#1A1A1A] mb-2">
-                    Wispr Flow Dictation
-                  </h3>
-                  <p className="text-[14px] md:text-[15px] text-[#1A1A1A]/75 leading-[1.45] mb-4 max-w-[360px]">
-                    The voice-to-text AI that turns speech into clear, polished
-                    writing in every app.
-                  </p>
-                  <div className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#1A1A1A]">
-                    <span>Download free</span>
-                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </a>
-
-              {/* Product Card 2: Wispr Flow Notetaker */}
-              <a
-                href="https://wisprflow.ai/notetaker"
-                className="group bg-[#E4E4D0] rounded-[20px] p-4 md:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-5 md:gap-6 hover:bg-[#dcdcc4] transition-colors"
-              >
-                <div className="w-full sm:w-[160px] h-[140px] sm:h-[148px] rounded-[14px] bg-[#034F46] shrink-0 flex items-end justify-center pt-5 px-4 overflow-hidden">
-                  <img
-                    src="/assets/transcript-new.png"
-                    alt="Wispr Flow Notetaker"
-                    className="w-full h-auto object-cover object-top rounded-t-[8px]"
-                  />
-                </div>
-                <div className="flex-1 py-1">
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="text-[19px] md:text-[20px] font-semibold text-[#1A1A1A]">
-                      Wispr Flow Notetaker
-                    </h3>
-                    <span className="bg-[#F59E42] text-[#1A1A1A] text-[12px] font-semibold px-2.5 py-0.5 rounded-full">
-                      New
-                    </span>
-                  </div>
-                  <p className="text-[14px] md:text-[15px] text-[#1A1A1A]/75 leading-[1.45] mb-4 max-w-[360px]">
-                    AI meeting notes accurate enough to act on. Works in all
-                    meetings.
-                  </p>
-                  <div className="inline-flex items-center gap-1.5 text-[14px] font-medium text-[#1A1A1A]">
-                    <span>Download free</span>
-                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          {/* 4 Navigation Columns */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-20">
-            {FOOTER_COLUMNS.map((col) => (
-              <div key={col.title}>
-                <div className="text-[12px] tracking-[0.16em] uppercase font-medium text-[#1A1A1A]/50 mb-5">
-                  {col.title}
-                </div>
-                <ul className="space-y-2.5">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="text-[14px] md:text-[15px] text-[#1A1A1A] hover:text-[#1A1A1A]/65 transition-colors font-normal"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          {/* Giant Full-Width Wispr Flow Wordmark Graphic */}
-          <div className="w-full pt-4 pb-8">
-            <img
-              src="/assets/flow-wordmark.svg"
-              alt="Wispr Flow"
-              className="w-full h-auto object-contain select-none"
-            />
-          </div>
-
-          {/* Bottom Legal / Social Bar */}
-          <div className="pt-6 border-t border-[#1A1A1A]/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[13px] text-[#1A1A1A]/65">
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <span>© Wispr Flow 2026</span>
-              <a
-                href="https://wisprflow.ai/terms-of-service"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                Terms
-              </a>
-              <a
-                href="https://wisprflow.ai/privacy-policy"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                Privacy
-              </a>
-              <a
-                href="https://wisprflow.ai/data-controls"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                Data Controls
-              </a>
-              <a
-                href="https://wisprflow.ai/#"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                Do Not Sell or Share My Personal Information
-              </a>
-              <a
-                href="https://wisprflow.ai/#"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                Privacy Settings
-              </a>
-            </div>
-
-            <div className="flex items-center gap-5">
-              <a
-                href="https://x.com/wisprflow"
-                aria-label="X"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                X (Twitter)
-              </a>
-              <a
-                href="https://www.linkedin.com/company/wisprflow"
-                aria-label="LinkedIn"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://www.youtube.com/@wisprflow"
-                aria-label="YouTube"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                YouTube
-              </a>
-              <a
-                href="https://www.instagram.com/wisprflow"
-                aria-label="Instagram"
-                className="hover:text-[#1A1A1A] transition-colors"
-              >
-                Instagram
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </>
+      </div>
+    </section>
   );
 }
 
+export function FooterSection() {
+  return (
+    <footer className="bg-[#FFFFEB] text-[#1A1A1A] pt-10 pb-0 overflow-hidden">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-8">
+        {/* Products Banner Row matching shot-14-16050.png */}
+        <div className="mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Card 1: Flow Dictation */}
+            <a
+              href="#dictation"
+              className="group rounded-[24px] bg-[#E4E4D0] p-4 sm:p-5 flex items-center gap-6 hover:bg-[#DDDDC7] transition-colors"
+            >
+              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-[#F0D7FF] flex items-center justify-center shrink-0">
+                <img
+                  src="/assets/flowbar.svg"
+                  alt="Flowbar"
+                  className="w-24 h-auto"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="font-bold text-[17px] text-[#1A1A1A]">
+                  Flow Dictation
+                </div>
+                <p className="text-[14px] leading-[1.5] text-[#1A1A1A]/70 mt-1.5 mb-3">
+                  The voice-to-text AI that turns speech into clear, polished writing in every app.
+                </p>
+                <span className="inline-flex items-center gap-1 text-[14px] font-semibold text-[#1A1A1A]">
+                  Download free <ChevronRight className="w-4 h-4" />
+                </span>
+              </div>
+            </a>
+
+            {/* Card 2: Flow Notetaker */}
+            <a
+              href="#notetaker"
+              className="group rounded-[24px] bg-[#E4E4D0] p-4 sm:p-5 flex items-center gap-6 hover:bg-[#DDDDC7] transition-colors"
+            >
+              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-[#034F46] flex items-end justify-center overflow-hidden pt-4 px-3 shrink-0">
+                <img
+                  src="/assets/transcript-new.png"
+                  alt="Flow Notetaker"
+                  className="w-full h-auto object-cover rounded-t-lg"
+                />
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-bold text-[17px] text-[#1A1A1A]">
+                    Flow Notetaker
+                  </span>
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#FFA946] text-[#1A1A1A]">
+                    New
+                  </span>
+                </div>
+                <p className="text-[14px] leading-[1.5] text-[#1A1A1A]/70 mt-1.5 mb-3">
+                  AI meeting notes accurate enough to act on. Works in all meetings.
+                </p>
+                <span className="inline-flex items-center gap-1 text-[14px] font-semibold text-[#1A1A1A]">
+                  Download free <ChevronRight className="w-4 h-4" />
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        {/* 4-Column Footer Links matching shot-14-16050.png */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 py-10 text-[14px]">
+          <div>
+            <h4 className="font-semibold uppercase tracking-[0.12em] text-[12px] text-[#1A1A1A]/50 mb-4">
+              GET STARTED
+            </h4>
+            <ul className="space-y-2.5 font-medium text-[#1A1A1A]/85">
+              <li><a href="#pricing" className="hover:text-[#1A1A1A]">Pricing</a></li>
+              <li><a href="#security" className="hover:text-[#1A1A1A]">Privacy &amp; Security</a></li>
+              <li><a href="#demo" className="hover:text-[#1A1A1A]">Web demo</a></li>
+              <li><a href="#compare" className="hover:text-[#1A1A1A]">Why Flow vs. Built-in Dictation</a></li>
+              <li><a href="#mic" className="hover:text-[#1A1A1A]">Microphone guide</a></li>
+              <li><a href="#merch" className="hover:text-[#1A1A1A]">Merch store</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold uppercase tracking-[0.12em] text-[12px] text-[#1A1A1A]/50 mb-4">
+              PROFESSIONALS
+            </h4>
+            <ul className="space-y-2.5 font-medium text-[#1A1A1A]/85">
+              <li><a href="#leaders" className="hover:text-[#1A1A1A]">Leaders</a></li>
+              <li><a href="#developers" className="hover:text-[#1A1A1A]">Developers</a></li>
+              <li><a href="#marketers" className="hover:text-[#1A1A1A]">Marketers</a></li>
+              <li><a href="#creators" className="hover:text-[#1A1A1A]">Creators</a></li>
+              <li><a href="#support" className="hover:text-[#1A1A1A]">Customer Support</a></li>
+              <li><a href="#students" className="hover:text-[#1A1A1A]">Students</a></li>
+              <li><a href="#lawyers" className="hover:text-[#1A1A1A]">Lawyers</a></li>
+              <li><a href="#accessibility" className="hover:text-[#1A1A1A]">Accessibility</a></li>
+              <li><a href="#sales" className="hover:text-[#1A1A1A]">Sales</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold uppercase tracking-[0.12em] text-[12px] text-[#1A1A1A]/50 mb-4">
+              RESOURCES
+            </h4>
+            <ul className="space-y-2.5 font-medium text-[#1A1A1A]/85">
+              <li><a href="#cases" className="hover:text-[#1A1A1A]">Case studies</a></li>
+              <li><a href="#blog" className="hover:text-[#1A1A1A]">Blog</a></li>
+              <li><a href="#notetaker-res" className="hover:text-[#1A1A1A]">Notetaker resources</a></li>
+              <li><a href="#prompting" className="hover:text-[#1A1A1A]">AI prompting guide</a></li>
+              <li><a href="#workflows" className="hover:text-[#1A1A1A]">Workflows</a></li>
+              <li><a href="#gboard" className="hover:text-[#1A1A1A]">Flow vs Gboard voice typing</a></li>
+              <li><a href="#apple" className="hover:text-[#1A1A1A]">Flow vs Apple Dictation</a></li>
+              <li><a href="#whats-new" className="hover:text-[#1A1A1A]">What&apos;s new</a></li>
+              <li><a href="#vibe" className="hover:text-[#1A1A1A]">Vibe coding</a></li>
+              <li><a href="#bounty" className="hover:text-[#1A1A1A]">Bug bounty</a></li>
+              <li><a href="#support-talk" className="hover:text-[#1A1A1A]">Talk to support</a></li>
+              <li><a href="#sales-talk" className="hover:text-[#1A1A1A]">Talk to sales</a></li>
+              <li><a href="#help" className="hover:text-[#1A1A1A]">Help center</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-semibold uppercase tracking-[0.12em] text-[12px] text-[#1A1A1A]/50 mb-4">
+              COMPANY
+            </h4>
+            <ul className="space-y-2.5 font-medium text-[#1A1A1A]/85">
+              <li><a href="#about" className="hover:text-[#1A1A1A]">About</a></li>
+              <li><a href="#careers" className="hover:text-[#1A1A1A]">Careers</a></li>
+              <li><a href="#trust" className="hover:text-[#1A1A1A]">Trust Center</a></li>
+              <li><a href="#affiliate" className="hover:text-[#1A1A1A]">Become an affiliate</a></li>
+              <li><a href="#media" className="hover:text-[#1A1A1A]">Media Kit</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Giant Edge-to-Edge Bottom Flow Logo matching shot-14-16050.png */}
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-8 mt-14 -mb-6 select-none pointer-events-none">
+        <img
+          src="/assets/flow-logo-black.svg"
+          alt="Wispr Flow"
+          className="w-full h-auto block"
+        />
+      </div>
+    </footer>
+  );
+}

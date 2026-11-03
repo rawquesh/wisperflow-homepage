@@ -3,22 +3,22 @@ import { EB_Garamond, Figtree } from "next/font/google";
 import "./globals.css";
 
 const ebGaramond = EB_Garamond({
-  variable: "--font-eb-garamond",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  variable: "--font-eb-garamond",
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
 });
 
 const figtree = Figtree({
-  variable: "--font-figtree",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-figtree",
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "Wispr Flow | Voice to Text Dictation & AI Notetaker",
+  title: "Wispr Flow | Effortless Voice Dictation",
   description:
-    "The voice-to-text AI that turns speech into clear, polished writing in every app. Available on Mac, Windows, iPhone, and Android.",
+    "Flow makes writing quick and clear with seamless voice dictation. It is the fastest, smartest way to type with your voice.",
 };
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="en"
       className={`${ebGaramond.variable} ${figtree.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#FFFFEB] text-[#1A1A1A] selection:bg-[#EBDCFF] selection:text-[#1A1A1A]">
+      <body className="min-h-full flex flex-col bg-[#FFFFEB] text-[#1A1A1A] font-sans selection:bg-[#F0D7FF] selection:text-[#1A1A1A]">
         {children}
       </body>
     </html>

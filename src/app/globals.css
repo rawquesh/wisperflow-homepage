@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-cream: #ffffeb;
+  --text-dark: #1a1a1a;
+  --forest-green: #034f46;
+  --lavender: #ebdcff;
+  --lavender-line: #f0d7ff;
+  --sage-surface: #e4e4d0;
+  --coral-accent: #ff5c35;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-eb-garamond), Georgia, serif;
+  --font-sans: var(--font-figtree), Arial, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffeb;
+  color: #1a1a1a;
+  font-family: var(--font-figtree), Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+.font-garamond {
+  font-family: var(--font-eb-garamond), Georgia, serif;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-left 32s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes waveform-bar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-wave-bar {
+  animation: waveform-bar 1.1s ease-in-out infinite;
+}
+
+/* Custom subtle scrollbar for FAQ questions list */
+.faq-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.faq-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 235, 0.08);
+  border-radius: 9999px;
+}
+
+.faq-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 235, 0.28);
+  border-radius: 9999px;
 }
